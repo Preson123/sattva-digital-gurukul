@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sattva Journey | Professional Sadhana Analytics</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #1F382B;
+            --accent: #F0A500;
+            --saffron: #FF7F00;
+            --light: #FDFCFB;
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--primary); scroll-behavior: smooth; }
+        h1, h2, h3, .brand { font-family: 'Cinzel', serif; }
+
+        /* Unified Navbar */
+        nav {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid rgba(31, 56, 43, 0.1);
+        }
+
+        /* Glass Cards with Glow */
+        .sattva-card {
+            background: #fff;
+            border-radius: 35px;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(31, 56, 43, 0.05);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sattva-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 40px 80px rgba(31, 56, 43, 0.12);
+        }
+
+        /* Animated Progress Ring */
+        .progress-ring {
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 80; /* Adjust this for progress */
+            transition: stroke-dashoffset 1s ease-in-out;
+        }
+
+        /* Gradient Text for Stats */
+        .stat-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Achievement Badge Hover */
+        .badge-icon {
+            filter: grayscale(100%);
+            transition: 0.4s;
+        }
+        .sattva-card:hover .badge-icon {
+            filter: grayscale(0%);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Custom Tooltip */
+        .chart-container { position: relative; height: 350px; }
+    </style>
+</head>
+<body>
+
+<nav class="fixed w-full z-50 px-8 py-5 flex justify-between items-center">
+    <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+        <div class="w-10 h-10 bg-[var(--primary)] text-white rounded-xl flex items-center justify-center font-bold shadow-lg">S</div>
+        <div>
+            <span class="brand text-xl font-bold block leading-none tracking-tighter uppercase">Sattva</span>
+            <span class="text-[9px] tracking-[0.3em] text-[var(--accent)] font-bold uppercase">Digital Gurukula</span>
+        </div>
+    </div>
+    <div class="hidden md:flex gap-10 uppercase text-[11px] font-bold tracking-widest text-[var(--primary)]/70">
+        <a href="index.html" class="hover:text-[var(--accent)] transition">Home</a>
+        <a href="practices.html" class="hover:text-[var(--accent)] transition">Practices</a>
+        <a href="heritage.html" class="hover:text-[var(--accent)] transition">Heritage</a>
+        <a href="journey.html" class="text-[var(--accent)] transition">My Journey</a>
+    </div>
+    <a href="login.html" class="bg-[var(--primary)] text-white px-7 py-2.5 rounded-full text-[10px] font-bold hover:bg-black transition shadow-lg uppercase tracking-widest">Portal Access</a>
+</nav>
+
+<main class="pt-40 pb-20 max-w-7xl mx-auto px-10">
+    
+    <header class="mb-16 flex flex-col lg:flex-row justify-between items-center gap-10">
+        <div class="flex items-center gap-8">
+            <div class="relative">
+                <div class="w-28 h-28 rounded-full border-4 border-[var(--accent)] p-1 overflow-hidden shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" class="w-full h-full rounded-full object-cover">
+                </div>
+                <div class="absolute -bottom-2 -right-2 bg-green-500 w-8 h-8 rounded-full border-4 border-white flex items-center justify-center">
+                    <i class="fas fa-check text-white text-[10px]"></i>
+                </div>
+            </div>
+            <div>
+                <h1 class="text-5xl font-bold tracking-tight">Namaste, <span class="stat-gradient">Aryan</span></h1>
+                <p class="text-gray-400 font-medium mt-2 uppercase text-[10px] tracking-[0.3em]">Mastery Path: Nadi Shodhana (Level 2)</p>
+            </div>
+        </div>
+        
+        <div class="flex gap-4">
+            <div class="sattva-card px-8 py-6 flex items-center gap-4 bg-white/50 backdrop-blur-md">
+                <i class="fas fa-fire-alt text-3xl text-[var(--accent)]"></i>
+                <div>
+                    <p class="text-2xl font-black">14</p>
+                    <p class="text-[9px] uppercase font-bold text-gray-400">Day Streak</p>
+                </div>
+            </div>
+            <div class="sattva-card px-8 py-6 flex items-center gap-4 bg-[var(--primary)] text-white">
+                <i class="fas fa-gem text-3xl text-[var(--accent)]"></i>
+                <div>
+                    <p class="text-2xl font-black">2,840</p>
+                    <p class="text-[9px] uppercase font-bold text-white/50">Ojas Earned</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="grid lg:grid-cols-3 gap-8 mb-12">
+        <div class="lg:col-span-2 sattva-card p-10 bg-white">
+            <div class="flex justify-between items-center mb-10">
+                <div>
+                    <h3 class="text-sm font-bold uppercase tracking-widest">Neural Sync Analytics</h3>
+                    <p class="text-[10px] text-gray-400">Correlation between Breath Depth & Neural Stillness</p>
+                </div>
+                <select class="bg-gray-50 border-none text-[10px] font-bold rounded-lg px-4 py-2 outline-none">
+                    <option>Last 7 Days</option>
+                    <option>Last 30 Days</option>
+                </select>
+            </div>
+            <div class="chart-container">
+                <canvas id="complexFlowChart"></canvas>
+            </div>
+        </div>
+
+        <div class="sattva-card p-10 bg-[var(--primary)] text-white border-none shadow-2xl">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-8">Sacred Achievements</h3>
+            <div class="grid grid-cols-2 gap-6">
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-3 badge-icon border border-white/10">
+                        <i class="fas fa-wind text-2xl text-blue-400"></i>
+                    </div>
+                    <p class="text-[9px] font-bold uppercase">Breath Master</p>
+                </div>
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-3 badge-icon border border-white/10">
+                        <i class="fas fa-moon text-2xl text-purple-400"></i>
+                    </div>
+                    <p class="text-[9px] font-bold uppercase">Deep Sleep</p>
+                </div>
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-3 badge-icon border border-white/10">
+                        <i class="fas fa-bolt text-2xl text-[var(--accent)]"></i>
+                    </div>
+                    <p class="text-[9px] font-bold uppercase">Ida-Pingala Sync</p>
+                </div>
+                <div class="text-center group opacity-30">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/10">
+                        <i class="fas fa-lock text-xl text-white"></i>
+                    </div>
+                    <p class="text-[9px] font-bold uppercase">Advanced Tapas</p>
+                </div>
+            </div>
+            <button class="w-full mt-10 py-4 bg-white/10 rounded-2xl text-[9px] font-bold uppercase tracking-[0.2em] hover:bg-[var(--accent)] hover:text-white transition">Explore Sangha Leaderboard</button>
+        </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="sattva-card p-10 flex flex-col items-center justify-center text-center">
+            <svg class="w-32 h-32 transform -rotate-90 mb-6">
+                <circle cx="64" cy="64" r="50" stroke="#F3F4F6" stroke-width="10" fill="transparent" />
+                <circle cx="64" cy="64" r="50" stroke="var(--accent)" stroke-width="10" fill="transparent" class="progress-ring" />
+            </svg>
+            <h4 class="text-3xl font-black">88%</h4>
+            <p class="text-[10px] font-bold uppercase text-gray-400 tracking-widest mt-2">Nadi Shodhana Accuracy</p>
+        </div>
+
+        <div class="sattva-card p-10 bg-[var(--primary)] text-white border-none flex flex-col justify-between">
+            <div class="flex justify-between items-start">
+                <h3 class="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Neural Guru Insight</h3>
+                <i class="fas fa-robot animate-bounce text-white/20"></i>
+            </div>
+            <p class="text-sm italic leading-relaxed text-white/80">"Aryan, your Vagus Nerve tone is currently peaking. This is the optimal window for Level 2 retention (Kumbhaka)."</p>
+            <div class="bg-white/5 p-4 rounded-xl flex items-center gap-4 border border-white/10">
+                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                <p class="text-[9px] font-bold uppercase">System: Biometric Calibration Complete</p>
+            </div>
+        </div>
+
+        <div class="sattva-card p-10 bg-white">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Upcoming Goal</h3>
+            <div class="flex items-center gap-6 mb-8">
+                <div class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-[var(--accent)] text-xl">
+                    <i class="fas fa-mountain"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold">Advanced Vinyasa</h4>
+                    <p class="text-[10px] font-medium text-gray-400">Unlock at 3,000 Ojas</p>
+                </div>
+            </div>
+            <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+                <div class="bg-[var(--accent)] h-full w-[85%]"></div>
+            </div>
+            <p class="text-right text-[10px] font-bold mt-2 text-[var(--accent)]">160 Ojas Remaining</p>
+        </div>
+    </div>
+</main>
+
+<footer class="bg-white border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-10 py-20 grid md:grid-cols-4 gap-12">
+        <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 bg-[var(--primary)] text-white rounded-lg flex items-center justify-center font-bold">S</div>
+                <span class="brand text-2xl font-bold tracking-tighter uppercase">Sattva</span>
+            </div>
+            <p class="text-gray-500 text-sm max-w-sm leading-relaxed mb-8">
+                The world's first digital ecosystem dedicated to the preservation of authentic tradition through modern biometric engineering.
+            </p>
+            <div class="flex gap-5 text-gray-400">
+                <a href="#" class="hover:text-[var(--accent)]"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="hover:text-[var(--accent)]"><i class="fab fa-youtube text-xl"></i></a>
+            </div>
+        </div>
+        <div>
+            <h4 class="font-bold text-[var(--primary)] mb-6 text-xs uppercase tracking-widest">Quick Links</h4>
+            <ul class="text-gray-500 text-sm space-y-4 font-medium">
+                <li><a href="practices.html" class="hover:text-[var(--accent)] transition">Yoga Practices</a></li>
+                <li><a href="heritage.html" class="hover:text-[var(--accent)] transition">The Lineage</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-bold text-[var(--primary)] mb-6 text-xs uppercase tracking-widest">Connect</h4>
+            <ul class="text-gray-500 text-sm space-y-4">
+                <li class="flex items-center gap-3"><i class="fas fa-envelope text-[var(--accent)]"></i> support@sattva.yoga</li>
+                <li class="flex items-center gap-3"><i class="fas fa-map-marker-alt text-[var(--accent)]"></i> Mysuru, KA, India</li>
+            </ul>
+        </div>
+    </div>
+    <div class="bg-gray-50 py-8 px-10 text-center border-t border-gray-100">
+        <p class="text-[10px] text-gray-400 uppercase tracking-[0.4em] font-bold">
+            &copy; 2026 SATTVA DIGITAL GURUKULA. ALL RIGHTS RESERVED.
+        </p>
+    </div>
+</footer>
+
+<script>
+    // ADVANCED MULTI-AXIS CHART LOGIC
+    const ctx = document.getElementById('complexFlowChart').getContext('2d');
+    
+    // Gradient for the primary line
+    const pranaGradient = ctx.createLinearGradient(0, 0, 0, 400);
+    pranaGradient.addColorStop(0, 'rgba(240, 165, 0, 0.3)');
+    pranaGradient.addColorStop(1, 'rgba(240, 165, 0, 0)');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [
+                {
+                    label: 'Breath Depth',
+                    data: [65, 78, 72, 85, 80, 95, 90],
+                    borderColor: '#F0A500',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#F0A500',
+                    pointHoverRadius: 8,
+                    fill: true,
+                    backgroundColor: pranaGradient,
+                    tension: 0.4,
+                    yAxisID: 'y',
+                },
+                {
+                    label: 'Neural Stillness',
+                    data: [40, 55, 45, 60, 58, 75, 70],
+                    borderColor: '#1F382B',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    fill: false,
+                    tension: 0.4,
+                    yAxisID: 'y1',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        font: { family: 'Inter', weight: 'bold', size: 10 },
+                        usePointStyle: true,
+                        padding: 20
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#1F382B',
+                    titleFont: { family: 'Cinzel', size: 12 },
+                    bodyFont: { family: 'Inter', size: 10 },
+                    padding: 15,
+                    cornerRadius: 15,
+                    displayColors: false
+                }
+            },
+            scales: {
+                y: { display: false, type: 'linear', position: 'left' },
+                y1: { display: false, type: 'linear', position: 'right' },
+                x: {
+                    grid: { display: false },
+                    ticks: {
+                        color: '#9CA3AF',
+                        font: { family: 'Inter', weight: 'bold', size: 10 }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

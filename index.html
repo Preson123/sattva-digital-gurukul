@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sattva Digital Gurukula | Authentic Yoga Ecosystem</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #1F382B;
+            --accent: #F0A500;
+            --saffron: #FF7F00;
+            --light: #FDFCFB;
+        }
+
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--primary); }
+        h1, h2, h3, .brand { font-family: 'Cinzel', serif; }
+
+        /* Glassmorphism Navbar */
+        nav {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid rgba(31, 56, 43, 0.1);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(rgba(31, 56, 43, 0.75), rgba(31, 56, 43, 0.6)),
+                        url("https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center;
+            clip-path: ellipse(150% 100% at 50% 0%);
+        }
+
+        /* Essential Hover Logic */
+        .sattva-card {
+            background: #fff;
+            border-radius: 30px;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        .sattva-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(31, 56, 43, 0.15);
+        }
+
+        .btn-saffron {
+            background: linear-gradient(135deg, #ff7f00, #f06200);
+            color: white;
+            box-shadow: 0 10px 20px rgba(255, 127, 0, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-saffron:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255, 127, 0, 0.4); }
+
+        #botMessages::-webkit-scrollbar { width: 4px; }
+        #botMessages::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+<div onclick="toggleBot()" class="fixed bottom-8 right-8 w-16 h-16 bg-[var(--primary)] text-white rounded-full flex items-center justify-center shadow-2xl cursor-pointer text-2xl z-50 hover:scale-110 transition-all border-2 border-[var(--accent)]">
+    <i class="fas fa-om animate-pulse"></i>
+</div>
+
+<div id="aiBot" class="hidden fixed bottom-28 right-8 w-80 bg-white rounded-[2rem] shadow-2xl overflow-hidden z-50 border border-gray-100 flex flex-col">
+    <div class="bg-[var(--primary)] text-white p-5">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-[var(--accent)] rounded-full flex items-center justify-center text-xs">AI</div>
+            <div>
+                <h4 class="font-bold text-sm">Neural Guru</h4>
+                <p class="text-[10px] text-white/60">Online | Lineage Wisdom</p>
+            </div>
+        </div>
+    </div>
+    <div id="botMessages" class="p-6 h-72 overflow-y-auto text-sm space-y-4 bg-gray-50">
+        <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-gray-600">Namaste. I am your Neural Guru. How can I guide your practice today?</div>
+    </div>
+    <div class="p-4 bg-white">
+        <input id="botInput" class="w-full bg-gray-100 rounded-full py-3 px-5 text-sm outline-none focus:ring-2 focus:ring-[var(--accent)] transition" placeholder="Ask about posture or breath..." onkeydown="sendBot(event)">
+    </div>
+</div>
+
+<nav class="fixed w-full z-40 px-8 py-5 flex justify-between items-center">
+    <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+        <div class="w-10 h-10 bg-[var(--primary)] text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg">S</div>
+        <div>
+            <span class="brand text-xl font-bold block leading-none tracking-tighter">SATTVA</span>
+            <span class="text-[9px] tracking-[0.3em] text-[var(--accent)] font-bold uppercase">Digital Gurukula</span>
+        </div>
+    </div>
+
+    <div class="hidden md:flex gap-10 uppercase text-[11px] font-bold tracking-widest text-[var(--primary)]/70">
+        <a href="index.html" class="hover:text-[var(--accent)] transition text-[var(--accent)]">Home</a>
+        <a href="practices.html" class="hover:text-[var(--accent)] transition">Practices</a>
+        <a href="heritage.html" class="hover:text-[var(--accent)] transition">Heritage</a>
+        <a href="journey.html" class="hover:text-[var(--accent)] transition">My Journey</a>
+    </div>
+
+    <a href="login.html" class="bg-[var(--primary)] text-white px-7 py-2.5 rounded-full text-[10px] font-bold hover:bg-black transition shadow-lg uppercase tracking-widest">Portal Access</a>
+</nav>
+
+<section class="hero-gradient h-[90vh] flex items-center justify-center text-center text-white px-6">
+    <div class="max-w-5xl">
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full text-[10px] font-bold tracking-[0.2em] mb-8">
+            <span class="w-2 h-2 bg-[var(--accent)] rounded-full animate-ping"></span>
+            MYSURU PALACE LINEAGE • EST. 1924
+        </div>
+
+        <h1 class="text-6xl md:text-8xl font-bold mb-8 leading-[1.1]">
+            Elevate Your <span class="text-[var(--accent)]">Prana</span>,<br>
+            <span class="italic font-light">Transform Life.</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-white/70 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+            Bridging 5,000 years of Vedic tradition with neural-vision posture correction. Your sacred space, anywhere in the world.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-6">
+            <a href="practices.html" class="btn-saffron px-12 py-5 rounded-full font-bold text-sm tracking-widest">START SADHANA</a>
+            <a href="heritage.html" class="bg-white/5 backdrop-blur-xl border border-white/20 px-12 py-5 rounded-full font-bold text-sm tracking-widest hover:bg-white/20 transition">OUR STORY</a>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="py-24 max-w-7xl mx-auto px-10 grid md:grid-cols-2 gap-20 items-center">
+    <div class="relative">
+        <div class="rounded-[40px] overflow-hidden shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=1200&q=80" alt="Meditation" class="w-full h-[600px] object-cover">
+        </div>
+        <div class="absolute -bottom-10 -right-10 bg-[var(--accent)] text-white p-10 rounded-[40px] shadow-2xl max-w-xs z-20">
+            <h4 class="font-bold text-xs uppercase tracking-[0.3em] mb-3">The Mission</h4>
+            <p class="text-sm leading-relaxed font-medium">To digitize the "Guru's Eye"—ensuring that the precision of the Mysuru Palace tradition is never lost to time or distance.</p>
+        </div>
+    </div>
+    
+    <div>
+        <span class="text-[var(--accent)] font-bold text-[10px] tracking-[0.4em] uppercase mb-4 block">About Sattva Gurukula</span>
+        <h2 class="text-5xl font-bold mb-8 leading-tight">Ancient Wisdom,<br><span class="text-gray-400">Neural Precision.</span></h2>
+        
+        <p class="text-gray-600 mb-6 leading-relaxed">Sattva Digital Gurukula is the world's first <strong>Bio-Digital Yoga Ecosystem</strong>. We believe that while Yoga is a spiritual journey, the physical practice requires the precision of engineering.</p>
+        
+        <p class="text-gray-600 mb-10 leading-relaxed">Our founders, trained in the direct lineage of T. Krishnamacharya, realized that online videos lacked one thing: <strong>Correction</strong>. We built a proprietary AI engine that "sees" your skeletal alignment in real-time.</p>
+
+        <div class="grid grid-cols-3 gap-10 border-t border-gray-100 pt-10">
+            <div>
+                <h4 class="text-3xl font-bold text-[var(--primary)] mb-1">1924</h4>
+                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Lineage Root</p>
+            </div>
+            <div>
+                <h4 class="text-3xl font-bold text-[var(--primary)] mb-1">50k+</h4>
+                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Neural Corrections</p>
+            </div>
+            <div>
+                <h4 class="text-3xl font-bold text-[var(--primary)] mb-1">100%</h4>
+                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Pure Tradition</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-10">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold uppercase tracking-tighter">The Sattva Digital Edge</h2>
+            <div class="w-20 h-1 bg-[var(--accent)] mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-10">
+            <div class="sattva-card p-12 text-center flex flex-col items-center">
+                <div class="w-16 h-16 bg-orange-50 text-[var(--accent)] rounded-2xl flex items-center justify-center mb-8 text-2xl shadow-sm">
+                    <i class="fas fa-signal"></i>
+                </div>
+                <h4 class="font-bold mb-4 text-xl">Biometric Sync</h4>
+                <p class="text-sm text-gray-500 leading-relaxed">Track your Ojas levels and breath efficiency in real-time, synced to your wearable data.</p>
+            </div>
+
+            <div class="sattva-card p-12 text-center flex flex-col items-center">
+                <div class="w-16 h-16 bg-green-50 text-[var(--primary)] rounded-2xl flex items-center justify-center mb-8 text-2xl shadow-sm">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h4 class="font-bold mb-4 text-xl">Sadhana Paths</h4>
+                <p class="text-sm text-gray-500 leading-relaxed">Adaptive curricula that evolve based on your weekly progress and biometric consistency.</p>
+            </div>
+
+            <div class="sattva-card p-12 text-center flex flex-col items-center">
+                <div class="w-16 h-16 bg-amber-50 text-[var(--saffron)] rounded-2xl flex items-center justify-center mb-8 text-2xl shadow-sm">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h4 class="font-bold mb-4 text-xl">Guru-in-the-Loop</h4>
+                <p class="text-sm text-gray-500 leading-relaxed">Our proprietary LLM understands lineage history and gives you real-time feedback during sessions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="grid md:grid-cols-3 gap-10 px-10 -mt-20 max-w-7xl mx-auto relative z-10 pb-24">
+    <div class="sattva-card p-10 text-center">
+        <div class="w-16 h-16 bg-orange-50 text-[var(--accent)] rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl shadow-sm">
+            <i class="fas fa-leaf"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Authentic Lineage</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Direct authorization from the Mysuru tradition, preserving the purity of Ashtanga Vinyasa.</p>
+    </div>
+
+    <div class="sattva-card p-10 text-center">
+        <div class="w-16 h-16 bg-green-50 text-[var(--primary)] rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl shadow-sm">
+            <i class="fas fa-microchip"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Neural Feedback</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Real-time posture analysis ensures safety and alignment using proprietary AI vision.</p>
+    </div>
+
+    <div class="sattva-card p-10 text-center">
+        <div class="w-16 h-16 bg-amber-50 text-[var(--saffron)] rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl shadow-sm">
+            <i class="fas fa-users"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Global Sangha</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Join live chanting and meditation sessions with a community spanning 40+ nations.</p>
+    </div>
+</section>
+
+<footer class="bg-white border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-10 py-20 grid md:grid-cols-4 gap-12">
+        <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 bg-[var(--primary)] text-white rounded-lg flex items-center justify-center font-bold">S</div>
+                <span class="brand text-2xl font-bold tracking-tighter">SATTVA</span>
+            </div>
+            <p class="text-gray-500 text-sm max-w-sm leading-relaxed mb-8">
+                The world's first digital ecosystem dedicated to the preservation of authentic Hatha and Vinyasa traditions through modern biometric engineering.
+            </p>
+            <div class="flex gap-5 text-gray-400">
+                <a href="#" class="hover:text-[var(--accent)]"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="hover:text-[var(--accent)]"><i class="fab fa-youtube text-xl"></i></a>
+                <a href="#" class="hover:text-[var(--accent)]"><i class="fab fa-linkedin text-xl"></i></a>
+            </div>
+        </div>
+
+        <div>
+            <h4 class="font-bold text-[var(--primary)] mb-6 text-xs uppercase tracking-widest">Quick Links</h4>
+            <ul class="text-gray-500 text-sm space-y-4 font-medium">
+                <li><a href="practices.html" class="hover:text-[var(--accent)] transition">Yoga Practices</a></li>
+                <li><a href="heritage.html" class="hover:text-[var(--accent)] transition">The Lineage</a></li>
+                <li><a href="journey.html" class="hover:text-[var(--accent)] transition">Student Journey</a></li>
+                <li><a href="#" class="hover:text-[var(--accent)] transition">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-bold text-[var(--primary)] mb-6 text-xs uppercase tracking-widest">Connect</h4>
+            <ul class="text-gray-500 text-sm space-y-4">
+                <li class="flex items-center gap-3"><i class="fas fa-envelope text-[var(--accent)]"></i> support@sattva.yoga</li>
+                <li class="flex items-center gap-3"><i class="fas fa-map-marker-alt text-[var(--accent)]"></i> Mysuru, Karnataka, India</li>
+                <li class="flex items-center gap-3"><i class="fas fa-phone text-[var(--accent)]"></i> +91 80-SATTVA-01</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="bg-gray-50 py-8 px-10 text-center border-t border-gray-100">
+        <p class="text-[10px] text-gray-400 uppercase tracking-[0.4em] font-bold">
+            &copy; 2026 SATTVA DIGITAL GURUKULA. ALL RIGHTS RESERVED. <br>
+            <span class="text-[var(--accent)]">Pure Lineage. Pure Practice.</span>
+        </p>
+    </div>
+</footer>
+
+<script src="ai-data.js"></script>
+
+<script>
+function toggleBot(){
+    const bot = document.getElementById("aiBot");
+    bot.classList.toggle("hidden");
+}
+
+function sendBot(e){
+    if(e.key === "Enter"){
+        const input = document.getElementById("botInput");
+        const msg = input.value.trim();
+        if(!msg) return;
+
+        const box = document.getElementById("botMessages");
+        
+        // User Message
+        box.innerHTML += `
+            <div class="flex justify-end">
+                <div class="bg-[var(--primary)] text-white p-3 rounded-2xl rounded-tr-none shadow-md max-w-[80%]">
+                    ${msg}
+                </div>
+            </div>`;
+
+        // AI Reply (from ai-data.js)
+        setTimeout(() => {
+            box.innerHTML += `
+                <div class="flex justify-start">
+                    <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 text-gray-700 max-w-[80%]">
+                        <span class="text-[var(--accent)] font-bold block text-[10px] mb-1">GURU</span>
+                        ${getAIReply(msg)}
+                    </div>
+                </div>`;
+            box.scrollTop = box.scrollHeight;
+        }, 600);
+
+        input.value = "";
+    }
+}
+</script>
+
+</body>
+</html>

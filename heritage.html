@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sattva Heritage | The Timeline of Tradition</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #1F382B;
+            --accent: #F0A500;
+            --saffron: #FF7F00;
+            --light: #FDFCFB;
+        }
+
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--primary); scroll-behavior: smooth; overflow-x: hidden; }
+        h1, h2, h3, .brand { font-family: 'Cinzel', serif; }
+
+        /* Sync Navbar */
+        nav {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid rgba(31, 56, 43, 0.1);
+        }
+
+        /* Hero Parallax */
+        .heritage-hero {
+            background: linear-gradient(rgba(31, 56, 43, 0.8), rgba(31, 56, 43, 0.7)),
+                        url('https://images.unsplash.com/photo-1599447421416-3414500d1f35?auto=format&fit=crop&w=1600&q=80');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            clip-path: ellipse(150% 100% at 50% 0%);
+        }
+
+        /* Timeline Styling */
+        .timeline-container { position: relative; }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: var(--accent);
+            top: 0; bottom: 0; left: 50%;
+            margin-left: -1px;
+            opacity: 0.3;
+        }
+
+        .timeline-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: 0.4s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .timeline-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(31, 56, 43, 0.1); }
+
+        .dot {
+            height: 20px; width: 20px;
+            background: var(--accent);
+            border: 4px solid white;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        /* Story Images */
+        .story-img {
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .btn-saffron {
+            background: linear-gradient(135deg, #ff7f00, #f06200);
+            color: white;
+            box-shadow: 0 10px 20px rgba(255, 127, 0, 0.3);
+            transition: 0.3s;
+        }
+        .btn-saffron:hover { transform: scale(1.05); }
+
+        #botMessages::-webkit-scrollbar { width: 4px; }
+        #botMessages::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<div onclick="toggleBot()" class="fixed bottom-8 right-8 w-16 h-16 bg-[var(--primary)] text-white rounded-full flex items-center justify-center shadow-2xl cursor-pointer text-2xl z-50 hover:scale-110 transition-all border-2 border-[var(--accent)]">
+    <i class="fas fa-om animate-pulse"></i>
+</div>
+
+<div id="aiBot" class="hidden fixed bottom-28 right-8 w-80 bg-white rounded-[2rem] shadow-2xl overflow-hidden z-50 border border-gray-100 flex flex-col">
+    <div class="bg-[var(--primary)] text-white p-5">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-[var(--accent)] rounded-full flex items-center justify-center text-xs">AI</div>
+            <div>
+                <h4 class="font-bold text-sm">Neural Guru</h4>
+                <p class="text-[10px] text-white/60">Lineage Wisdom | Online</p>
+            </div>
+        </div>
+    </div>
+    <div id="botMessages" class="p-6 h-72 overflow-y-auto text-sm space-y-4 bg-gray-50">
+        <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-gray-600">Namaste. I can guide you through our century-old history. What would you like to know?</div>
+    </div>
+    <div class="p-4 bg-white">
+        <input id="botInput" class="w-full bg-gray-100 rounded-full py-3 px-5 text-sm outline-none focus:ring-2 focus:ring-[var(--accent)] transition" placeholder="Ask about the Palace lineage..." onkeydown="sendBot(event)">
+    </div>
+</div>
+
+<nav class="fixed w-full z-50 px-8 py-5 flex justify-between items-center">
+    <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+        <div class="w-10 h-10 bg-[var(--primary)] text-white rounded-xl flex items-center justify-center font-bold shadow-lg">S</div>
+        <div>
+            <span class="brand text-xl font-bold block leading-none tracking-tighter uppercase">Sattva</span>
+            <span class="text-[9px] tracking-[0.3em] text-[var(--accent)] font-bold uppercase">Digital Gurukula</span>
+        </div>
+    </div>
+    <div class="hidden md:flex gap-10 uppercase text-[11px] font-bold tracking-widest text-[var(--primary)]/70">
+        <a href="index.html" class="hover:text-[var(--accent)] transition">Home</a>
+        <a href="practices.html" class="hover:text-[var(--accent)] transition">Practices</a>
+        <a href="heritage.html" class="text-[var(--accent)] transition">Heritage</a>
+        <a href="journey.html" class="hover:text-[var(--accent)] transition">My Journey</a>
+    </div>
+    <a href="login.html" class="bg-[var(--primary)] text-white px-7 py-2.5 rounded-full text-[10px] font-bold hover:bg-black transition shadow-lg uppercase tracking-widest">Portal Access</a>
+</nav>
+
+<section class="heritage-hero h-[80vh] flex items-center justify-center text-center text-white px-6">
+    <div class="max-w-4xl">
+        <span class="text-[var(--accent)] font-bold tracking-[0.4em] text-xs uppercase mb-4 block">Our Sacred Roots</span>
+        <h1 class="text-6xl md:text-8xl font-bold mb-6">A Living Lineage</h1>
+        <p class="text-lg md:text-xl text-white/70 font-light max-w-2xl mx-auto leading-relaxed">
+            From the royal shalas of Mysuru to your digital space. We preserve the purity of the 5,000-year-old Vedic science.
+        </p>
+    </div>
+</section>
+
+<section class="py-32 bg-white overflow-hidden">
+    <div class="text-center mb-24">
+        <h2 class="text-4xl font-bold uppercase tracking-widest">The Timeline of Tradition</h2>
+        <div class="w-20 h-1 bg-[var(--accent)] mx-auto mt-4"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 timeline-container">
+        <div class="flex flex-col md:flex-row items-center mb-32 group">
+            <div class="md:w-1/2 md:pr-12 md:text-right mb-8 md:mb-0">
+                <div class="timeline-card">
+                    <span class="text-[var(--accent)] font-black text-4xl block mb-2">1924</span>
+                    <h3 class="text-2xl font-bold mb-3 uppercase">The Jaganmohan Palace</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Lineage begins in Mysuru under the Maharaja's patronage, establishing the first modern Yoga Shala for Hatha traditions.</p>
+                </div>
+            </div>
+            <div class="dot hidden md:block"></div>
+            <div class="md:w-1/2 md:pl-12">
+                <div class="story-img">
+                    <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600" alt="Mysuru Palace" class="w-full h-64 object-cover">
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row-reverse items-center mb-32 group">
+            <div class="md:w-1/2 md:pl-12 mb-8 md:mb-0">
+                <div class="timeline-card">
+                    <span class="text-[var(--accent)] font-black text-4xl block mb-2">1948</span>
+                    <h3 class="text-2xl font-bold mb-3 uppercase">The Vinyasa Method</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Breath-linked movement sequences are codified into the Primary and Intermediate series, creating the "Mysore Method" studied globally today.</p>
+                </div>
+            </div>
+            <div class="dot hidden md:block"></div>
+            <div class="md:w-1/2 md:pr-12">
+                <div class="story-img">
+                    <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=600" alt="Yoga Practice" class="w-full h-64 object-cover">
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center mb-10 group">
+            <div class="md:w-1/2 md:pr-12 md:text-right mb-8 md:mb-0">
+                <div class="timeline-card border-2 border-[var(--accent)]">
+                    <span class="text-[var(--accent)] font-bold text-[10px] tracking-widest uppercase mb-2 block">The Revolution</span>
+                    <span class="text-[var(--primary)] font-black text-4xl block mb-2">2026</span>
+                    <h3 class="text-2xl font-bold mb-3 uppercase">Sattva Digital</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        A new era begins. Sattva digitizes the "Guru's Eye," ensuring the Mysuru Palace tradition is never lost to distance using real-time neural alignment.
+                    </p>
+                </div>
+            </div>
+            <div class="dot hidden md:block"></div>
+            <div class="md:w-1/2 md:pl-12">
+                <div class="story-img border-4 border-[var(--accent)]/20">
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600" alt="Digital Yoga" class="w-full h-64 object-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-gray-50/50">
+    <div class="max-w-7xl mx-auto px-10">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold uppercase tracking-tighter">Why Mysuru is the World Capital</h2>
+            <p class="text-gray-400 mt-2 text-[10px] font-bold uppercase tracking-widest">The factors behind a global yoga pilgrimage</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-10">
+            <div class="bg-white p-10 rounded-[40px] shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500">
+                <h4 class="font-bold text-[var(--accent)] mb-4 text-[10px] uppercase tracking-widest">Royal Patronage</h4>
+                <p class="text-xs text-gray-500 leading-relaxed">The Mysore royal family's support allowed for the professional research and revival of yoga when it was declining elsewhere.</p>
+            </div>
+            <div class="bg-white p-10 rounded-[40px] shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500">
+                <h4 class="font-bold text-[var(--accent)] mb-4 text-[10px] uppercase tracking-widest">The Mysore Method</h4>
+                <p class="text-xs text-gray-500 leading-relaxed">The unique self-practice method—where students memorize sequences and receive 1:1 adjustments—attracts serious practitioners globally.</p>
+            </div>
+            <div class="bg-white p-10 rounded-[40px] shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500">
+                <h4 class="font-bold text-[var(--accent)] mb-4 text-[10px] uppercase tracking-widest">Direct Lineage</h4>
+                <p class="text-xs text-gray-500 leading-relaxed">Maintaining the disciplined guru-shishya tradition ensures that practitioners learn from the authentic source without dilution.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-32 px-10 bg-white">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+        <div>
+            <h2 class="text-5xl font-bold mb-8 uppercase leading-tight">From Gurukula<br>to Global <span class="text-[var(--accent)]">Sangha</span></h2>
+            <p class="text-gray-500 text-lg leading-relaxed mb-8">
+                In ancient India, yoga was a one-on-one transmission. Sattva recreates this intimacy using AI that corrects your alignment as if a Guru were standing right beside you.
+            </p>
+            <div class="grid grid-cols-2 gap-8">
+                <div>
+                    <i class="fas fa-check-circle text-[var(--accent)] mb-4 text-2xl"></i>
+                    <h4 class="font-bold uppercase text-xs mb-2">Authenticity</h4>
+                    <p class="text-[10px] text-gray-400">Pure lineage without dilution.</p>
+                </div>
+                <div>
+                    <i class="fas fa-microchip text-[var(--accent)] mb-4 text-2xl"></i>
+                    <h4 class="font-bold uppercase text-xs mb-2">Innovation</h4>
+                    <p class="text-[10px] text-gray-400">Neural tracking for safety.</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-[var(--primary)] p-12 rounded-[50px] text-white relative overflow-hidden shadow-2xl">
+            <i class="fas fa-om absolute -right-10 -bottom-10 text-[15rem] text-white/5 opacity-10"></i>
+            <h3 class="text-2xl font-bold mb-6 italic leading-relaxed">"Practice is 99% effort, 1% theory. We give you the tools for both."</h3>
+            <p class="text-[var(--accent)] font-bold uppercase text-[10px] tracking-[0.3em] mb-8">— The Tradition</p>
+            
+            <h4 class="text-3xl font-bold mb-4 uppercase">You are part of this<br>Lineage now.</h4>
+            <p class="text-white/60 text-sm leading-relaxed mb-10">Your breath is the same breath practiced inside the Jaganmohan Palace a century ago.</p>
+            <a href="practices.html" class="btn-saffron px-10 py-4 rounded-full font-bold text-[10px] tracking-widest inline-block uppercase">CHOOSE YOUR SADHANA</a>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-white border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-10 py-20 grid md:grid-cols-4 gap-12">
+        <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 bg-[var(--primary)] text-white rounded-lg flex items-center justify-center font-bold">S</div>
+                <span class="brand text-2xl font-bold tracking-tighter uppercase">Sattva</span>
+            </div>
+            <p class="text-gray-500 text-sm max-w-sm leading-relaxed mb-8">
+                The world's first digital ecosystem dedicated to the preservation of authentic tradition through modern biometric engineering.
+            </p>
+            <div class="flex gap-5 text-gray-400">
+                <a href="#" class="hover:text-[var(--accent)]"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="hover:text-[var(--accent)]"><i class="fab fa-youtube text-xl"></i></a>
+            </div>
+        </div>
+        <div>
+            <h4 class="font-bold text-[var(--primary)] mb-6 text-xs uppercase tracking-widest">Quick Links</h4>
+            <ul class="text-gray-500 text-sm space-y-4 font-medium">
+                <li><a href="practices.html" class="hover:text-[var(--accent)] transition">Yoga Practices</a></li>
+                <li><a href="heritage.html" class="hover:text-[var(--accent)] transition text-[var(--accent)]">The Lineage</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-bold text-[var(--primary)] mb-6 text-xs uppercase tracking-widest">Connect</h4>
+            <ul class="text-gray-500 text-sm space-y-4">
+                <li class="flex items-center gap-3"><i class="fas fa-envelope text-[var(--accent)]"></i> support@sattva.yoga</li>
+                <li class="flex items-center gap-3"><i class="fas fa-map-marker-alt text-[var(--accent)]"></i> Mysuru, KA, India</li>
+            </ul>
+        </div>
+    </div>
+    <div class="bg-gray-50 py-8 px-10 text-center border-t border-gray-100">
+        <p class="text-[10px] text-gray-400 uppercase tracking-[0.4em] font-bold">
+            &copy; 2026 SATTVA DIGITAL GURUKULA. ALL RIGHTS RESERVED.
+        </p>
+    </div>
+</footer>
+
+<script>
+    function toggleBot(){
+        document.getElementById("aiBot").classList.toggle("hidden");
+    }
+
+    // Logic for AI Guru Bot
+    function getAIReply(msg) {
+        const triggers = {
+            "palace": "The Jaganmohan Palace in Mysuru was where our modern lineage began under the patronage of Sri Krishnaraja Wadiyar IV.",
+            "lineage": "Our lineage flows from the teachings of T. Krishnamacharya, the father of modern yoga, specifically through the Vinyasa traditions of Mysuru.",
+            "digital": "Sattva Digital uses AI vision to track your skeletal alignment, recreating the direct 'eye of the Guru' for the modern practitioner.",
+            "mysuru": "Mysuru is world-famous for the Ashtanga Vinyasa tradition. It remains the spiritual home for practitioners seeking authentic methodology.",
+            "hello": "Namaste. How can I guide you through our sacred history today?"
+        };
+        const lowerMsg = msg.toLowerCase();
+        for (let key in triggers) {
+            if (lowerMsg.includes(key)) return triggers[key];
+        }
+        return "The wisdom of the lineage is vast. Every breath you take in practice connects you to a century of truth.";
+    }
+
+    function sendBot(e){
+        if(e.key === "Enter"){
+            const input = document.getElementById("botInput");
+            const msg = input.value.trim();
+            if(!msg) return;
+            const box = document.getElementById("botMessages");
+            box.innerHTML += `<div class="flex justify-end"><div class="bg-[var(--primary)] text-white p-3 rounded-2xl rounded-tr-none shadow-md max-w-[80%]">${msg}</div></div>`;
+            setTimeout(() => {
+                box.innerHTML += `<div class="flex justify-start"><div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 text-gray-700 max-w-[80%]"><span class="text-[var(--accent)] font-bold block text-[10px] mb-1">GURU</span>${getAIReply(msg)}</div></div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 600);
+            input.value = "";
+        }
+    }
+</script>
+</body>
+</html>

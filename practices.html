@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sattva Practices | Sacred Sadhana</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #1F382B;
+            --accent: #F0A500;
+            --saffron: #FF7F00;
+            --light: #FDFCFB;
+        }
+
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--primary); }
+        h1, h2, h3, .brand { font-family: 'Cinzel', serif; }
+
+        nav {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid rgba(31, 56, 43, 0.1);
+        }
+
+        .sattva-card {
+            background: #fff;
+            border-radius: 30px;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        .sattva-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(31, 56, 43, 0.15);
+        }
+
+        .btn-saffron {
+            background: linear-gradient(135deg, #ff7f00, #f06200);
+            color: white;
+            box-shadow: 0 10px 20px rgba(255, 127, 0, 0.3);
+            transition: 0.3s;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-saffron:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255, 127, 0, 0.4); }
+        
+        #botMessages::-webkit-scrollbar { width: 4px; }
+        #botMessages::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+<div onclick="toggleBot()" class="fixed bottom-8 right-8 w-16 h-16 bg-[var(--primary)] text-white rounded-full flex items-center justify-center shadow-2xl cursor-pointer text-2xl z-50 hover:scale-110 transition-all border-2 border-[var(--accent)]">
+    <i class="fas fa-om animate-pulse"></i>
+</div>
+
+<div id="aiBot" class="hidden fixed bottom-28 right-8 w-80 bg-white rounded-[2rem] shadow-2xl overflow-hidden z-50 border border-gray-100 flex flex-col">
+    <div class="bg-[var(--primary)] text-white p-5">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-[var(--accent)] rounded-full flex items-center justify-center text-xs">AI</div>
+            <div>
+                <h4 class="font-bold text-sm">Neural Guru</h4>
+                <p class="text-[10px] text-white/60">Practice Guide | Online</p>
+            </div>
+        </div>
+    </div>
+    <div id="botMessages" class="p-6 h-72 overflow-y-auto text-sm space-y-4 bg-gray-50">
+        <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-gray-600">Namaste. Ready to begin your practice? Ask me about any level or technique.</div>
+    </div>
+    <div class="p-4 bg-white">
+        <input id="botInput" class="w-full bg-gray-100 rounded-full py-3 px-5 text-sm outline-none focus:ring-2 focus:ring-[var(--accent)] transition" placeholder="Ask a question..." onkeydown="sendBot(event)">
+    </div>
+</div>
+
+<nav class="fixed w-full z-40 px-8 py-5 flex justify-between items-center">
+    <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+        <div class="w-10 h-10 bg-[var(--primary)] text-white rounded-xl flex items-center justify-center font-bold shadow-lg">S</div>
+        <div>
+            <span class="brand text-xl font-bold block leading-none tracking-tighter">SATTVA</span>
+            <span class="text-[9px] tracking-[0.3em] text-[var(--accent)] font-bold uppercase">Digital Gurukula</span>
+        </div>
+    </div>
+
+    <div class="hidden md:flex gap-10 uppercase text-[11px] font-bold tracking-widest text-[var(--primary)]/70">
+        <a href="index.html" class="hover:text-[var(--accent)] transition">Home</a>
+        <a href="practices.html" class="text-[var(--accent)] transition">Practices</a>
+        <a href="heritage.html" class="hover:text-[var(--accent)] transition">Heritage</a>
+        <a href="journey.html" class="hover:text-[var(--accent)] transition">My Journey</a>
+    </div>
+
+    <a href="login.html" class="bg-[var(--primary)] text-white px-7 py-2.5 rounded-full text-[10px] font-bold hover:bg-black transition shadow-lg uppercase tracking-widest">Portal Access</a>
+</nav>
+
+<section class="pt-48 pb-20 text-center px-6 bg-white">
+    <span class="text-[10px] font-bold tracking-[0.4em] text-[var(--accent)] uppercase mb-4 block">Choose Your Sadhana</span>
+    <h1 class="text-5xl md:text-7xl font-bold mb-6">Sacred Practices</h1>
+    <p class="text-gray-500 max-w-2xl mx-auto text-lg font-light">
+        A progressive ecosystem designed to take you from the first breath to ultimate mastery.
+    </p>
+</section>
+
+<section class="max-w-7xl mx-auto px-10 grid md:grid-cols-3 gap-10">
+    <div class="sattva-card p-10 flex flex-col">
+        <div class="mb-6">
+            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Entry Level</span>
+            <h3 class="text-2xl font-bold mt-1">Foundation Series</h3>
+        </div>
+        <p class="text-gray-500 mb-8 text-sm leading-relaxed">Perfect for beginners — focusing on structural alignment and foundational breath work.</p>
+        <ul class="space-y-4 text-sm text-gray-600 mb-10 flex-grow">
+            <li class="flex items-center gap-3"><i class="fas fa-check text-[var(--accent)]"></i> Posture Basics</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-[var(--accent)]"></i> Breath Control</li>
+        </ul>
+        <div class="mt-auto">
+            <p class="font-bold text-2xl mb-4 text-[var(--primary)]">₹1,499<span class="text-sm font-normal text-gray-400">/mo</span></p>
+            <a href="enroll-foundation.html" class="btn-saffron w-full py-4 rounded-full font-bold text-xs uppercase tracking-widest">ENROLL NOW</a>
+        </div>
+    </div>
+
+    <div class="sattva-card p-10 flex flex-col">
+        <div class="mb-6">
+            <span class="text-[10px] font-bold text-[var(--saffron)] uppercase tracking-widest">Healing Path</span>
+            <h3 class="text-2xl font-bold mt-1">Therapeutic Yoga</h3>
+        </div>
+        <p class="text-gray-500 mb-8 text-sm leading-relaxed">Targeted practices for modern ailments — spine health and stress relief.</p>
+        <ul class="space-y-4 text-sm text-gray-600 mb-10 flex-grow">
+            <li class="flex items-center gap-3"><i class="fas fa-check text-[var(--saffron)]"></i> Spine Therapy</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-[var(--saffron)]"></i> Anxiety relief</li>
+        </ul>
+        <div class="mt-auto">
+            <p class="font-bold text-2xl mb-4 text-[var(--primary)]">₹1,999<span class="text-sm font-normal text-gray-400">/mo</span></p>
+            <a href="enroll-therapy.html" class="btn-saffron w-full py-4 rounded-full font-bold text-xs uppercase tracking-widest">ENROLL NOW</a>
+        </div>
+    </div>
+
+    <div class="sattva-card p-10 flex flex-col border-2 border-[var(--accent)] relative overflow-hidden bg-gray-50/30">
+        <div class="absolute top-0 right-0 bg-[var(--accent)] text-white px-8 py-1 rotate-45 translate-x-6 translate-y-4 text-[9px] font-bold uppercase">Best Value</div>
+        <div class="mb-6">
+            <span class="text-[10px] font-bold text-[var(--accent)] uppercase tracking-widest">Full Integration</span>
+            <h3 class="text-2xl font-bold mt-1">Yogi Pro Program</h3>
+        </div>
+        <p class="text-gray-600 mb-8 text-sm leading-relaxed">The complete experience featuring neural-vision tech and daily live sessions.</p>
+        <ul class="space-y-4 text-sm text-gray-600 mb-10 flex-grow">
+            <li class="flex items-center gap-3"><i class="fas fa-check text-[var(--accent)]"></i> AI Posture Correction</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-[var(--accent)]"></i> Daily Live Guru Q&A</li>
+        </ul>
+        <div class="mt-auto">
+            <p class="font-bold text-3xl mb-4 text-[var(--primary)]">₹2,999<span class="text-sm font-normal text-gray-400">/mo</span></p>
+            <a href="enroll-pro.html" class="btn-saffron w-full py-4 rounded-full font-bold text-xs uppercase tracking-widest">JOIN PRO SANGHA</a>
+        </div>
+    </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-10 py-32">
+    <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Structured Evolution</h2>
+        <div class="w-20 h-1 bg-[var(--accent)] mx-auto"></div>
+    </div>
+
+    <div class="space-y-12">
+        <div class="sattva-card p-10 md:p-12 grid md:grid-cols-3 gap-10 items-center">
+            <div class="col-span-2">
+                <span class="text-[var(--accent)] font-bold text-xs tracking-widest uppercase">Phase I</span>
+                <h3 class="text-3xl font-bold mb-4 mt-2">Level 1 — The Awakening</h3>
+                <p class="text-gray-500 leading-relaxed mb-6">Focusing on 'Yoga Chikitsa' sequence and fundamental Surya Namaskara.</p>
+                <div class="flex gap-8 text-xs font-bold uppercase tracking-tighter text-gray-400">
+                    <span><i class="far fa-calendar-alt mr-2"></i> 8 Weeks</span>
+                    <span><i class="fas fa-award mr-2"></i> Cert Included</span>
+                </div>
+            </div>
+            <div class="text-center md:border-l border-gray-100 pl-4">
+                <h4 class="text-4xl font-bold text-[var(--primary)] mb-6">₹6,999</h4>
+                <a href="curriculum-l1.html" class="border-2 border-[var(--primary)] text-[var(--primary)] px-8 py-3 rounded-full text-[10px] font-bold hover:bg-[var(--primary)] hover:text-white transition uppercase">View Curriculum</a>
+            </div>
+        </div>
+
+        <div class="sattva-card p-10 md:p-12 grid md:grid-cols-3 gap-10 items-center">
+            <div class="col-span-2">
+                <span class="text-[var(--saffron)] font-bold text-xs tracking-widest uppercase">Phase II</span>
+                <h3 class="text-3xl font-bold mb-4 mt-2">Level 2 — Energetic Flow</h3>
+                <p class="text-gray-500 leading-relaxed mb-6">Introduction to Nadi Shodhana and AI-assisted seated primary series.</p>
+                <div class="flex gap-8 text-xs font-bold uppercase tracking-tighter text-gray-400">
+                    <span><i class="far fa-calendar-alt mr-2"></i> 12 Weeks</span>
+                    <span><i class="fas fa-brain mr-2"></i> AI Integration</span>
+                </div>
+            </div>
+            <div class="text-center md:border-l border-gray-100 pl-4">
+                <h4 class="text-4xl font-bold text-[var(--primary)] mb-6">₹12,999</h4>
+                <a href="curriculum-l2.html" class="border-2 border-[var(--primary)] text-[var(--primary)] px-8 py-3 rounded-full text-[10px] font-bold hover:bg-[var(--primary)] hover:text-white transition uppercase">View Curriculum</a>
+            </div>
+        </div>
+
+        <div class="sattva-card p-10 md:p-12 grid md:grid-cols-3 gap-10 items-center bg-[var(--primary)] text-white">
+            <div class="col-span-2">
+                <span class="text-[var(--accent)] font-bold text-xs tracking-widest uppercase">Phase III</span>
+                <h3 class="text-3xl font-bold mb-4 mt-2">Level 3 — Mastery</h3>
+                <p class="text-white/60 leading-relaxed mb-6">Direct lineage holder mentorship and teaching rights.</p>
+                <div class="flex gap-8 text-xs font-bold uppercase tracking-tighter text-white/40">
+                    <span><i class="far fa-user mr-2"></i> Mentorship</span>
+                    <span><i class="fas fa-scroll mr-2"></i> Teaching Rights</span>
+                </div>
+            </div>
+            <div class="text-center md:border-l border-white/10 pl-4">
+                <h4 class="text-4xl font-bold text-[var(--accent)] mb-6">₹24,999</h4>
+                <a href="curriculum-l3.html" class="bg-[var(--accent)] text-white px-8 py-3 rounded-full text-[10px] font-bold hover:bg-white hover:text-[var(--primary)] transition uppercase">Apply to Mastery</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-white mt-32 border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-10 py-20 grid md:grid-cols-4 gap-12">
+        <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 bg-[var(--primary)] text-white rounded-lg flex items-center justify-center font-bold">S</div>
+                <span class="brand text-2xl font-bold tracking-tighter">SATTVA</span>
+            </div>
+            <p class="text-gray-500 text-sm max-w-sm leading-relaxed mb-8">
+                The world's first digital ecosystem dedicated to the preservation of authentic Hatha and Vinyasa traditions through modern biometric engineering.
+            </p>
+            <div class="flex gap-5 text-gray-400">
+                <a href="#" class="hover:text-[var(--accent)]"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="hover:text-[var(--accent)]"><i class="fab fa-youtube text-xl"></i></a>
+                <a href="#" class="hover:text-[var(--accent)]"><i class="fab fa-linkedin text-xl"></i></a>
+            </div>
+        </div>
+        <div>
+            <h4 class="font-bold text-[var(--primary)] mb-6 text-xs uppercase tracking-widest">Quick Links</h4>
+            <ul class="text-gray-500 text-sm space-y-4 font-medium">
+                <li><a href="practices.html" class="hover:text-[var(--accent)] transition text-[var(--accent)]">Yoga Practices</a></li>
+                <li><a href="heritage.html" class="hover:text-[var(--accent)] transition">The Lineage</a></li>
+                <li><a href="journey.html" class="hover:text-[var(--accent)] transition">Student Journey</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-bold text-[var(--primary)] mb-6 text-xs uppercase tracking-widest">Connect</h4>
+            <ul class="text-gray-500 text-sm space-y-4">
+                <li class="flex items-center gap-3"><i class="fas fa-envelope text-[var(--accent)]"></i> support@sattva.yoga</li>
+                <li class="flex items-center gap-3"><i class="fas fa-map-marker-alt text-[var(--accent)]"></i> Mysuru, KA, India</li>
+            </ul>
+        </div>
+    </div>
+    <div class="bg-gray-50 py-8 px-10 text-center border-t border-gray-100">
+        <p class="text-[10px] text-gray-400 uppercase tracking-[0.4em] font-bold">
+            &copy; 2026 SATTVA DIGITAL GURUKULA. ALL RIGHTS RESERVED.
+        </p>
+    </div>
+</footer>
+
+<script src="ai-data.js"></script>
+<script>
+function toggleBot(){
+    const bot = document.getElementById("aiBot");
+    bot.classList.toggle("hidden");
+}
+
+function sendBot(e){
+    if(e.key === "Enter"){
+        const input = document.getElementById("botInput");
+        const msg = input.value.trim();
+        if(!msg) return;
+        const box = document.getElementById("botMessages");
+        box.innerHTML += `<div class="flex justify-end"><div class="bg-[var(--primary)] text-white p-3 rounded-2xl rounded-tr-none shadow-md max-w-[80%]">${msg}</div></div>`;
+        
+        setTimeout(() => {
+            box.innerHTML += `<div class="flex justify-start"><div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 text-gray-700 max-w-[80%]"><span class="text-[var(--accent)] font-bold block text-[10px] mb-1">GURU</span>${getAIReply(msg)}</div></div>`;
+            box.scrollTop = box.scrollHeight;
+        }, 600);
+        input.value = "";
+    }
+}
+</script>
+</body>
+</html>
